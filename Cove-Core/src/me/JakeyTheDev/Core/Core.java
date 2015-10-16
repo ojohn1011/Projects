@@ -27,7 +27,7 @@ public class Core extends JavaPlugin implements Listener
 
 		Instance = this;
 
-		sql = new MySQL(getInstance(), "162.223.9.251", "3306", "Core", "root", "k69yg4guccimaneG42pEn");
+		sql = new MySQL(getInstance(), "IP HERE", "3306", "Core", "USERNAME", "PASSWORD");
 
 		sql.register();
 
