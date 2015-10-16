@@ -1,0 +1,8 @@
+name: Cove-Hub
+main: me.JakeyTheDev.Hub.Core
+version: 1.0.0
+commands:
+  Hub:
+   description: Check Hubs version!
+  firework:
+   description: Shoot Fireworks by command! (Donor Only)
