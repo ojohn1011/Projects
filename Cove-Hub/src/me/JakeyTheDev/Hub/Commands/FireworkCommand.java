@@ -12,14 +12,17 @@ import org.bukkit.inventory.meta.FireworkMeta;
 
 import me.JakeyTheDev.Hub.Utils.ChatUtil;
 
-public class FireworkCommand implements CommandExecutor {
+public class FireworkCommand implements CommandExecutor 
+{
 
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	{
 
 		Player player = (Player) sender;
 
 		if(args.length == 1) {
-			if(args[0].equalsIgnoreCase("Launch")) {
+			if(args[0].equalsIgnoreCase("Launch")) 
+			{
 				ChatUtil.sendMessage(player, ChatUtil.HUB, "FIREWORKS SIZZLE!");
 
 				Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
@@ -31,7 +34,8 @@ public class FireworkCommand implements CommandExecutor {
 				fw.setFireworkMeta(meta);
 
 			}
-		} else {
+		} else 
+		{
 			ChatUtil.sendMessage(player, ChatUtil.WARNING, "/Firework Launch");
 		}
 		return false;
