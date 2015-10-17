@@ -10,11 +10,13 @@ import org.bukkit.inventory.Inventory;
 
 import me.JakeyTheDev.Hub.Utils.ItemUtil;
 
-public class SettingsInventory {
+public class SettingsInventory 
+{
 
 	public static Inventory Settings;
 
-	public static void openSettingsMenu(Player player) {
+	public static void openSettingsMenu(Player player) 
+	{
 
 		Settings = Bukkit.createInventory(null, 3*9, ChatColor.AQUA + "Settings");
 
