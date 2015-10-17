@@ -13,34 +13,46 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import me.JakeyTheDev.Hub.Utils.ChatUtil;
 
 @SuppressWarnings("deprecation")
-public class ItemDropAndMoveListener implements Listener {
+public class ItemDropAndMoveListener implements Listener
+{
 	
 	@EventHandler
-	public void onItemDrop(PlayerDropItemEvent e) {
+	public void onItemDrop(PlayerDropItemEvent e) 
+	{
 		Player player = e.getPlayer();
-		if(player.isOp()) {
+		if(player.isOp()) 
+		{
 			
-		} else {
+		} else 
+		{
+			
 	        e.getItemDrop().remove();
 			e.setCancelled(true);
 			ChatUtil.sendMessage(player, ChatUtil.WARNING, "You cannot drop items in the hub!");
 		}
 	}
 	@EventHandler
-	public void onItemMove(PlayerPickupItemEvent e) {
+	public void onItemMove(PlayerPickupItemEvent e) 
+	{
 		Player player = e.getPlayer();
-		if(player.isOp()) {
+		if(player.isOp())
+		{
 			
-		} else {
+		} else 
+		
+		{
 			e.setCancelled(true);
 		}
 	}
 	@EventHandler
-	public void onItemMove(InventoryClickEvent e) {
+	public void onItemMove(InventoryClickEvent e) 
+	{
 		HumanEntity player = e.getWhoClicked();
-		if(player.isOp()) {
+		if(player.isOp()) 
+		{
 			
-		} else {
+		} else 
+		{
 			e.setResult(Result.DENY);
 		}
 	}
