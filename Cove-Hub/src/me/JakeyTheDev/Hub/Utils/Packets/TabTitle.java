@@ -11,9 +11,11 @@ import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 
-public class TabTitle {
+public class TabTitle 
+{
 
-	public static void sendTabTitle(Player player, String header, String footer) {
+	public static void sendTabTitle(Player player, String header, String footer) 
+	{
 		if (header == null)
 			header = "";
 		header = ChatColor.translateAlternateColorCodes('&', header);
@@ -33,13 +35,16 @@ public class TabTitle {
 		PacketPlayOutPlayerListHeaderFooter headerPacket = new PacketPlayOutPlayerListHeaderFooter(
 				tabTitle);
 
-		try {
+		try
+		{
 			Field field = headerPacket.getClass().getDeclaredField("b");
 			field.setAccessible(true);
 			field.set(headerPacket, tabFoot);
-		} catch (Exception e) {
+		} catch (Exception e) 
+		{
 			e.printStackTrace();
-		} finally {
+		} finally 
+		{
 			connection.sendPacket(headerPacket);
 		}
 	}
