@@ -25,15 +25,19 @@ public class SetRankCommand extends AbstractCommand
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) 
 	{
-		if ((sender instanceof Player)) {
+		if ((sender instanceof Player))
+		{
 			Player s = (Player) sender;
-			if (args.length < 2) {
+			if (args.length < 2) 
+			{
 				ChatUtil.sendMessage(s, ChatUtil.PERMISSIONS, "Wrong amount of arguments!");
 				return true;
 			}
 			
 			Player target = Bukkit.getPlayerExact(args[0]);
-			if (target == null) {
+			if (target == null) 
+			
+			{
 				ChatUtil.sendMessage(s, ChatUtil.PERMISSIONS, "This player is not online.");
 				return true;
 			}
@@ -80,7 +84,8 @@ public class SetRankCommand extends AbstractCommand
     			Player player = (Player) sender;
     			ChatUtil.sendMessage(player, ChatUtil.PERMISSIONS, "Player has recieved their rank!");
     			
-			} else {
+			} else
+			{
 				
 				String rank = args[1].toUpperCase();
     			Player player = (Player) sender;
@@ -90,7 +95,8 @@ public class SetRankCommand extends AbstractCommand
     				return true;
     			}
 				
-				try {
+				try 
+				{
 					if(Core.sql.checkConnection()) 
 					{
 						if(Core.sql.accountExists(Bukkit.getOfflinePlayer(args[0]).getUniqueId(), "PlayerInfo")) {
