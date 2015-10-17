@@ -7,9 +7,11 @@ import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 
-public class ActionBar {
+public class ActionBar 
+{
 
-	public static void sendActionbar(Player p, String message){
+	public static void sendActionbar(Player p, String message)
+	{
 		IChatBaseComponent icbc = ChatSerializer.a("{\"text\": \"" + message
 				+ "\"}");
 
