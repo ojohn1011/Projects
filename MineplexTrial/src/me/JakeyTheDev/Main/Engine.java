@@ -64,7 +64,7 @@ public class Engine extends JavaPlugin implements Listener
 		
 		//TODO LOGIN TO SQL DATABASE (MAY USE A CONFIGURATION FILE)
 		
-		sql = new MySQL(this, "ldn.sql.cubedhost.com", "3306", "mc1080", "mc1080", "2622bc6202");
+		sql = new MySQL(this, "IP", "3306", "mc1080", "USERNAME", "PASS");
 		
 		sql.register();
 		
