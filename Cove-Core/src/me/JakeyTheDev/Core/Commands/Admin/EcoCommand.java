@@ -14,33 +14,41 @@ import me.JakeyTheDev.Core.Commands.AbstractCommand;
 import me.JakeyTheDev.Core.PlayerData.PlayerData;
 import me.JakeyTheDev.Core.Utils.ChatUtil;
 
-public class EcoCommand extends AbstractCommand implements CommandExecutor  {
+public class EcoCommand extends AbstractCommand implements CommandExecutor  
+{
 
-	public EcoCommand(int rank) {
+	public EcoCommand(int rank)
+	{
 		super(rank);
 
 	}
 
 	@SuppressWarnings("deprecation")
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if ((sender instanceof Player)) {
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	{
+		if ((sender instanceof Player)) 
+		{
 			Player player = (Player) sender;
 
-			if (args.length < 3) {
+			if (args.length < 3) 
+			{
 
 
 				Player target = Bukkit.getPlayer(args[1]);
-				if (target != null) {
+				if (target != null) 
+				{
 
 					int amount;
 
 					try {
 						amount = Integer.parseInt(args[2]);
-					} catch (Exception e) {
+					} catch (Exception e)
+					{
 						return true;
 					}
 
-					switch (args[0].toLowerCase()) {
+					switch (args[0].toLowerCase()) 
+					{
 					case "give":
 						PlayerData.players.get(target).Crystals += amount;
 						ChatUtil.sendMessage(player, ChatUtil.CRYSTALS, "You have given " + target.getName() + amount + " Crystals");
@@ -60,23 +68,29 @@ public class EcoCommand extends AbstractCommand implements CommandExecutor  {
 						break;
 					}
 				} else 
+				{
 
 					ChatUtil.sendMessage(player, ChatUtil.CRYSTALS, target.getName() + " Is not online!");
 
-			} else {
+			} else 
+			{
 				
-				if (Bukkit.getPlayer(args[1]) != null) {
+				if (Bukkit.getPlayer(args[1]) != null)
+				{
 
 					Player target = Bukkit.getPlayer(args[1]);
 					int amount;
 
-					try {
+					try 
+					{
 						amount = Integer.parseInt(args[2]);
-					} catch (Exception e) {
+					} catch (Exception e)
+					{
 						return true;
 					}
 
-					switch (args[0].toLowerCase()) {
+					switch (args[0].toLowerCase()) 
+					{
 					case "give":
 						ChatUtil.sendMessage((Player) sender, ChatUtil.CRYSTALS, "You have given " + target.getName() + amount + " Crystals");
 						break;
@@ -94,15 +108,20 @@ public class EcoCommand extends AbstractCommand implements CommandExecutor  {
 					default:
 						break;
 					}
-				} else {
+				} else
+				{
 					OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-					try {
-						if(Core.sql.checkConnection()) {
+					try 
+					
+					{
+						if(Core.sql.checkConnection())
+						{
 							if(Core.sql.accountExists(target.getUniqueId(), "Crystals")) {
 								Core.sql.setValue(target.getUniqueId(), "Crystals", "CRYSTALS", Integer.parseInt(args[2]));
 							}
 						}
-					} catch (SQLException e) {
+					} catch (SQLException e)
+					{
 						e.printStackTrace();
 					}
 				}

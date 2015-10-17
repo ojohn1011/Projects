@@ -9,9 +9,11 @@ import org.bukkit.entity.Player;
 import me.JakeyTheDev.Hub.Utils.ItemUtil;
 import me.JakeyTheDev.Hub.Utils.TitleUtil;
 
-public class GiveItems {
+public class GiveItems
+{
 	
-	public static void giveItems(Player player) {
+	public static void giveItems(Player player) 
+	{
 		
 		player.getInventory().setItem(0, 
 				ItemUtil.createItem(Material.COMPASS, 1, 
@@ -27,7 +29,7 @@ public class GiveItems {
 		
 		player.getInventory().setItem(7, 
 				ItemUtil.createItem(Material.BLAZE_POWDER, 1, 
-						"§c§lOFF §f/ §3VANISH PLAYERS", Arrays.asList("", ChatColor.BLUE + "Right click me to Vanish everyone!")));
+						"Â§cÂ§lOFF Â§f/ Â§3VANISH PLAYERS", Arrays.asList("", ChatColor.BLUE + "Right click me to Vanish everyone!")));
 		
 	}
 

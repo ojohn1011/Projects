@@ -16,21 +16,26 @@ import me.JakeyTheDev.Hub.Utils.Packets.TabTitle;
 import me.JakeyTheDev.Hub.Utils.Packets.Title;
 import me.JakeyTheDev.Hub.Utils.Scoreboard.ScoreboardManagers;
 
-public class JoinListener implements Listener {
+public class JoinListener implements Listener 
+{
 
 	@EventHandler
-	public void onJoin(PlayerJoinEvent e) {
+	public void onJoin(PlayerJoinEvent e) 
+	{
 
 		final Player player = e.getPlayer();
 		
 		ScoreboardManagers.createScoreboard(player);
 
-		if(player.isOp()) {
+		if(player.isOp())
+		{
 			TabTitle.sendTabTitle(player, 
 					ChatColor.GOLD + "---> " + ChatColor.AQUA + 
 					"Welcome to Combat Cove!" + ChatColor.GOLD + " <---", ChatColor.GREEN + "We are currently in 1.8!");
 
-		} else {
+		} else 
+		
+		{
 			TabTitle.sendTabTitle(player, 
 					ChatColor.GOLD + "---> " + ChatColor.AQUA + 
 					"Welcome to Combat Cove!" + ChatColor.GOLD + " <---", ChatColor.GREEN + 
@@ -40,7 +45,8 @@ public class JoinListener implements Listener {
 
 		e.setJoinMessage("");
 
-		for(int i = 1; i < 100; i++) {
+		for(int i = 1; i < 100; i++) 
+		{
 			ChatUtil.sendMessage(player, ChatUtil.NONE, "");
 		}
 		SendWelcomeMessage.sendWelcome(player);
@@ -49,17 +55,20 @@ public class JoinListener implements Listener {
 
 		GiveItems.giveItems(player);
 
-		for (Player all : Bukkit.getOnlinePlayers()) {
+		for (Player all : Bukkit.getOnlinePlayers())
+		{
 			ActionBar.sendActionbar(all,ChatColor.GOLD +  player.getName() + ChatColor.GREEN + " has joined the game!");
 			
 			ChatUtil.sendMessage(all, ChatUtil.JOIN, player.getName());
 		}
 		Title.sendTitle(player, ChatColor.GREEN + "Welcome to", ChatColor.AQUA + "Combat Cove");
 		
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Core.getInstance(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Core.getInstance(), new Runnable() 
+		{
 			
 			@Override
-			public void run() {
+			public void run() 
+			{
 				
 				ScoreboardManagers.createScoreboard(player);
 				

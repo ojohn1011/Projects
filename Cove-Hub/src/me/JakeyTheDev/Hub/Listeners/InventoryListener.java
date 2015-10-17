@@ -23,10 +23,12 @@ import me.JakeyTheDev.Hub.Utils.Arrays;
 import me.JakeyTheDev.Hub.Utils.ChatUtil;
 import me.JakeyTheDev.Hub.Utils.ItemUtil;
 
-public class InventoryListener implements Listener {
+public class InventoryListener implements Listener
+{
 
 	@EventHandler
-	public void onInventoryClick1(InventoryClickEvent e) {
+	public void onInventoryClick1(InventoryClickEvent e)
+	{
 		Player player = (Player) e.getWhoClicked();
 		ItemStack clicked = e.getCurrentItem();
 
@@ -36,9 +38,11 @@ public class InventoryListener implements Listener {
 
 		if (ServerSelectorInventory.selector != null
 				&& e.getInventory().getName()
-				.equals(ServerSelectorInventory.selector.getName())) {
+				.equals(ServerSelectorInventory.selector.getName()))
+				{
 			e.setCancelled(true);
-			switch (clicked.getType()) {
+			switch (clicked.getType()) 
+			{
 			case BLAZE_POWDER:
 				player.closeInventory();
 				ChatUtil.sendMessage(player, ChatUtil.HUB, "Being sent to Particle Wars!");
@@ -50,7 +54,9 @@ public class InventoryListener implements Listener {
 		}
 	}
 	@EventHandler
-	public void onInventoryClick2(InventoryClickEvent e) {
+	public void onInventoryClick2(InventoryClickEvent e) 
+	
+	{
 		Player player = (Player) e.getWhoClicked();
 		ItemStack clicked = e.getCurrentItem();
 
@@ -60,9 +66,11 @@ public class InventoryListener implements Listener {
 
 		if (MenuInventory.Menu != null
 				&& e.getInventory().getName()
-				.equals(MenuInventory.Menu.getName())) {
+				.equals(MenuInventory.Menu.getName()))
+				{
 			e.setCancelled(true);
-			switch (clicked.getType()) {
+			switch (clicked.getType()) 
+			{
 			case NETHER_STAR:
 				player.closeInventory();
 				GadgetsInventory.openGadgetsMenu(player);
@@ -79,7 +87,8 @@ public class InventoryListener implements Listener {
 		}
 	}
 	@EventHandler
-	public void onInventoryClick3(InventoryClickEvent e) {
+	public void onInventoryClick3(InventoryClickEvent e)
+	{
 		Player player = (Player) e.getWhoClicked();
 		ItemStack clicked = e.getCurrentItem();
 
@@ -89,9 +98,11 @@ public class InventoryListener implements Listener {
 
 		if (ProfileInventory.Profile != null
 				&& e.getInventory().getName()
-				.equals(ProfileInventory.Profile.getName())) {
+				.equals(ProfileInventory.Profile.getName()))
+				{
 			e.setCancelled(true);
-			switch (clicked.getType()) {
+			switch (clicked.getType())
+			{
 			case REDSTONE_COMPARATOR:
 				player.closeInventory();
 				SettingsInventory.openSettingsMenu(player);
@@ -103,7 +114,8 @@ public class InventoryListener implements Listener {
 		}
 	}
 	@EventHandler
-	public void onInventoryClick4(InventoryClickEvent e) {
+	public void onInventoryClick4(InventoryClickEvent e)
+	{
 		Player player = (Player) e.getWhoClicked();
 		ItemStack clicked = e.getCurrentItem();
 
@@ -113,19 +125,24 @@ public class InventoryListener implements Listener {
 
 		if (SettingsInventory.Settings != null
 				&& e.getInventory().getName()
-				.equals(SettingsInventory.Settings.getName())) {
+				.equals(SettingsInventory.Settings.getName())) 
+				{
 			e.setCancelled(true);
-			switch (clicked.getType()) {
+			switch (clicked.getType()) 
+			{
 			case NETHER_STAR:
 				player.closeInventory();
-				if(Arrays.Vanish.contains(player)) {
+				if(Arrays.Vanish.contains(player)) 
+				{
 					Arrays.Vanish.remove(player);
-					for (Player all : Bukkit.getOnlinePlayers()) {
+					for (Player all : Bukkit.getOnlinePlayers())
+					{
 						player.showPlayer(all);
 					}
 					ChatUtil.sendMessage(player, ChatUtil.HUB, "Players Enabled!");
 				} else {
-					for (Player all : Bukkit.getOnlinePlayers()) {
+					for (Player all : Bukkit.getOnlinePlayers()) 
+					{
 						player.hidePlayer(all);
 					}
 					ChatUtil.sendMessage(player, ChatUtil.HUB, "Players Disabled!");
@@ -141,7 +158,8 @@ public class InventoryListener implements Listener {
 		}
 	}
 	@EventHandler
-	public void onInventoryClick5(InventoryClickEvent e) {
+	public void onInventoryClick5(InventoryClickEvent e)
+	{
 		Player player = (Player) e.getWhoClicked();
 		ItemStack clicked = e.getCurrentItem();
 
@@ -151,9 +169,11 @@ public class InventoryListener implements Listener {
 
 		if (GadgetsInventory.Gadgets != null
 				&& e.getInventory().getName()
-				.equals(GadgetsInventory.Gadgets.getName())) {
+				.equals(GadgetsInventory.Gadgets.getName()))
+				{
 			e.setCancelled(true);
-			switch (clicked.getType()) {
+			switch (clicked.getType()) 
+			{
 			case DIAMOND_HOE:
 				player.closeInventory();
 				//WITHDRAW 500 crystals
@@ -165,7 +185,8 @@ public class InventoryListener implements Listener {
 		}
 	}
 	@EventHandler
-	public void onInventoryClick6(InventoryClickEvent e) {
+	public void onInventoryClick6(InventoryClickEvent e)
+	{
 		
 		Player player = (Player) e.getWhoClicked();
 		ItemStack clicked = e.getCurrentItem();
@@ -176,9 +197,11 @@ public class InventoryListener implements Listener {
 
 		if (HatInventory.Wardrobe != null
 				&& e.getInventory().getName()
-				.equals(HatInventory.Wardrobe.getName())) {
+				.equals(HatInventory.Wardrobe.getName()))
+				{
 			e.setCancelled(true);
-			switch (clicked.getType()) {
+			switch (clicked.getType())
+			{
 			case SKULL_ITEM:
 				player.getInventory().setHelmet(e.getCurrentItem());
 				player.closeInventory();
@@ -186,10 +209,12 @@ public class InventoryListener implements Listener {
 				ChatUtil.sendMessage(player, ChatUtil.FABULOUS, "YOU ARE FABULOUS! <3");
 				return;
 			case BED:
-				if(player.getInventory().getHelmet() == null) {
+				if(player.getInventory().getHelmet() == null) 
+				{
 					player.closeInventory();
 					ChatUtil.sendMessage(player, ChatUtil.HUB, "You have no Head Gear!");
-				} else {
+				} else 
+				{
 					player.getInventory().setHelmet(null);
 					player.closeInventory();
 					ChatUtil.sendMessage(player, ChatUtil.HUB, "Cleared Hat!");

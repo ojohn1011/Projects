@@ -1,11 +1,15 @@
 package me.JakeyTheDev.Core.Utils;
 
-public class MathUtils {
+public class MathUtils 
+{
 	
-	public static boolean isNumeric(String str) {
-		try {
+	public static boolean isNumeric(String str)
+	{
+		try 
+		{
 			Integer.parseInt(str);
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException e)
+		{
 			return false;
 		}
 		return true;

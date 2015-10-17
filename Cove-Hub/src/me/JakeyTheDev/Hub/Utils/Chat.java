@@ -2,7 +2,8 @@ package me.JakeyTheDev.Hub.Utils;
 
 import org.bukkit.ChatColor;
 
-public class Chat {
+public class Chat 
+{
 
 	public static String Scramble = "§k";
 	public static String Bold = "§l";

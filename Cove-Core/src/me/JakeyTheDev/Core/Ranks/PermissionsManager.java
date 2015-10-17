@@ -2,7 +2,8 @@ package me.JakeyTheDev.Core.Ranks;
 
 import org.bukkit.ChatColor;
 
-public enum PermissionsManager {
+public enum PermissionsManager
+{
 	
 	LEADERSHIP("Leadership", "LT", ChatColor.RED.toString() + ChatColor.BOLD, ChatColor.RED, 10),
 	OWNER("Owner", "OWNER", ChatColor.RED.toString() + ChatColor.BOLD, ChatColor.RED, 9),
@@ -22,7 +23,8 @@ public enum PermissionsManager {
 	public int rank;
 	public int donor = 0;
 	
-	PermissionsManager(String Name, String gamePrefix, String nameColor, ChatColor textColor, int rank) {
+	PermissionsManager(String Name, String gamePrefix, String nameColor, ChatColor textColor, int rank)
+	{
 		this.Name = Name;
 		this.gamePrefix = gamePrefix;
 		this.nameColor = nameColor;
@@ -30,7 +32,8 @@ public enum PermissionsManager {
 		this.rank = rank;
 	}
 	
-	PermissionsManager(String Name, String gamePrefix, String nameColor, ChatColor textColor, int rank, int donor) {
+	PermissionsManager(String Name, String gamePrefix, String nameColor, ChatColor textColor, int rank, int donor) 
+	{
 		this.Name = Name;
 		this.gamePrefix = gamePrefix;
 		this.nameColor = nameColor;

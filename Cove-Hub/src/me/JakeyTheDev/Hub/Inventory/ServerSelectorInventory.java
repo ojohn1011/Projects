@@ -11,11 +11,14 @@ import org.bukkit.inventory.Inventory;
 import me.JakeyTheDev.Hub.Utils.ItemUtil;
 import me.JakeyTheDev.Hub.Utils.TitleUtil;
 
-public class ServerSelectorInventory {
+public class ServerSelectorInventory 
+{
 	
 	public static Inventory selector;
 	
-	public static void openSelector(Player player) {
+	public static void openSelector(Player player) 
+	
+	{
 		
 		selector = Bukkit.createInventory(null, 3*9, TitleUtil.SelectorTitle);
 		
@@ -27,5 +30,4 @@ public class ServerSelectorInventory {
 		player.openInventory(selector);
 		
 	}
-
 }

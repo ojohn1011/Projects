@@ -18,25 +18,34 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import me.JakeyTheDev.Hub.Core;
 import me.JakeyTheDev.Hub.Utils.ChatUtil;
 
-public class FireworkGun implements Listener {
+public class FireworkGun implements Listener 
+{
 
 	ArrayList<Player> cooldown = new ArrayList<Player>();
 
 	@EventHandler
-	public void onInteract(final PlayerInteractEvent e) {
-		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			if(e.getItem().getType() == Material.DIAMOND_HOE) {
-				if(e.getPlayer().isOp()) {
+	public void onInteract(final PlayerInteractEvent e) 
+	{
+		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
+		{
+			if(e.getItem().getType() == Material.DIAMOND_HOE) 
+			{
+				if(e.getPlayer().isOp()) 
+				{
 					shootFireworks(e.getPlayer());
-				} else {
-					if (cooldown.contains(e.getPlayer())) {
+				} else 
+				{
+					if (cooldown.contains(e.getPlayer())) 
+					{
 						ChatUtil.sendMessage(e.getPlayer(), ChatUtil.COOLDOWN, "You can only use this every 5 seconds.");
 						return;
 					}
 					shootFireworks(e.getPlayer());
 					cooldown.add(e.getPlayer());
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Core.getInstance(), new Runnable() {
-						public void run() {
+						public void run()
+						
+						{
 							cooldown.remove(e.getPlayer());
 						}
 					}, 5*20);
@@ -45,7 +54,8 @@ public class FireworkGun implements Listener {
 			}
 		}
 	}
-	public void shootFireworks(Player player) {
+	public void shootFireworks(Player player)
+	{
 
 		Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
 		FireworkMeta meta = fw.getFireworkMeta();

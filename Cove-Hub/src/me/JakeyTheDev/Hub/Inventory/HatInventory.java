@@ -10,11 +10,13 @@ import org.bukkit.inventory.Inventory;
 
 import me.JakeyTheDev.Hub.Utils.ItemUtil;
 
-public class HatInventory {
+public class HatInventory
+{
 
 	public static Inventory Wardrobe;
 
-	public static void openHatsMenu(Player player) {
+	public static void openHatsMenu(Player player)
+	{
 
 		Wardrobe = Bukkit.createInventory(null, 2*9, ChatColor.AQUA + "Wardrobe");
 

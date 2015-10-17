@@ -3,9 +3,11 @@ package me.JakeyTheDev.Hub.Methods;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class SendWelcomeMessage {
+public class SendWelcomeMessage 
+{
 	
-	public static void sendWelcome(Player player) {
+	public static void sendWelcome(Player player) 
+	{
 		
 		player.sendMessage(ChatColor.AQUA.toString() + 
 				ChatColor.STRIKETHROUGH + "===============================================");

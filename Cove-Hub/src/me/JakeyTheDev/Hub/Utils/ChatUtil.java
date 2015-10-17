@@ -3,7 +3,8 @@ package me.JakeyTheDev.Hub.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public enum ChatUtil {
+public enum ChatUtil 
+{
 	
 	NONE("", ChatColor.WHITE.toString(), ChatColor.WHITE.toString()),
 	COOLDOWN("COOLDOWN", ChatColor.DARK_RED.toString() + ChatColor.BOLD, ChatColor.RED.toString()),
@@ -23,13 +24,15 @@ public enum ChatUtil {
 	public String afterColor;
 	
 	
-	private ChatUtil(String Prefix, String Color, String AfterColor) {
+	private ChatUtil(String Prefix, String Color, String AfterColor)
+	{
 		
 		this.prefix = Prefix;
 		this.color = Color;
 		this.afterColor = AfterColor;
 	}
-	public static void sendMessage(Player player, ChatUtil Type, String Message) {
+	public static void sendMessage(Player player, ChatUtil Type, String Message)
+	{
 		
 		player.sendMessage(Type.color + Type.prefix + " " + Type.afterColor + Message);
 	}

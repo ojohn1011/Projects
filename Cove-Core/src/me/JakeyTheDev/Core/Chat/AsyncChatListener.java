@@ -8,13 +8,16 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import me.JakeyTheDev.Core.PlayerData.PlayerData;
 import me.JakeyTheDev.Core.Ranks.PermissionsManager;	
 
-public class AsyncChatListener extends AbstractListener {
+public class AsyncChatListener extends AbstractListener 
+{
 
 	@EventHandler
-	public void onAsyncChat(final AsyncPlayerChatEvent event) {
+	public void onAsyncChat(final AsyncPlayerChatEvent event)
+	{
 		PlayerData player = PlayerData.players.get(event.getPlayer());
 		PermissionsManager rank = player.rank;
-		if(rank.rank >= 7) {
+		if(rank.rank >= 7) 
+		{
 			Bukkit.broadcastMessage(rank.gamePrefix + " " + rank.nameColor + event.getPlayer().getDisplayName() + ChatColor.WHITE + ": " + rank.textColor + ChatColor.translateAlternateColorCodes('&', event.getMessage()));
 			event.setCancelled(true);
 			return;
