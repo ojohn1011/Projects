@@ -3,12 +3,14 @@ package me.JakeyTheDev.Main.Manager;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -33,14 +35,14 @@ public class GameManager
 	}
 
 	protected GameType type;
-	private Game _selectedGame;
+	public Game _selectedGame;
 	private boolean _gameLoaded;
 	private int _task, _time;
 	public String map;
-	public int minTime = 3, maxTime = 12;
-	private List<Player> _spectators = new ArrayList<>();
-	private List<Player> _alivePlayers = new ArrayList<>();
-	private HashMap<Integer, Player> _possition = new HashMap<>();
+	public int minTime = 2, maxTime = 12;
+	public List<Player> _spectators = new ArrayList<>();
+	public List<Player> _alivePlayers = new ArrayList<>();
+	public HashMap<Integer, Player> _possition = new HashMap<>();
 
 	public List<Game> games = new ArrayList<>();
 
@@ -50,23 +52,23 @@ public class GameManager
 		games.add(new Runner(_engine));
 	}
 
-	public void start()
-	{
-		this.load();
-	}
-
 	public void stop()
 	{
 		stopCountdown();
-	}
-
-	public void restartGame()
-	{
-		this.load();
+		ChatFormat.broadcastMessage("GAME STOPPED! REASON: NOT ENOUGH PLAYERS", ChatFormat.GAME);
+		for (Player all : Bukkit.getOnlinePlayers())
+		{
+			_engine.Scoreboard.giveWaitingScoreboard(all, "MINEPLEX");
+		}
 	}
 
 	public void finishGame()
 	{
+		for (Player all : Bukkit.getOnlinePlayers())
+		{
+			all.teleport(Bukkit.getWorld("world").getSpawnLocation());
+		}
+
 		_selectedGame.unLoad();
 
 		_engine.module.deleteWorld(false);
@@ -75,31 +77,35 @@ public class GameManager
 
 		_alivePlayers.clear();
 
+		for (Player all : Bukkit.getOnlinePlayers())
+		{
+			removeSpectator(all);
+		}
 		this._possition.clear();
+		_gameLoaded = false;
+		
+		for (Player all : Bukkit.getOnlinePlayers()) {
+			all.getInventory().setItem(8, _engine.gemInv.createItem(Material.CHEST, 1, ChatColor.GREEN + "Gem Stats",
+			        Arrays.asList(ChatColor.AQUA + "Right click - Opens inventory to see gems.")));
+		}
 
 		Bukkit.getScheduler().runTaskLater(_engine, new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				start();
+				load();
 			}
 		}, 20L);
 	}
 
 	public void load()
 	{
-
-		for (Player all : Bukkit.getOnlinePlayers())
-		{
-			all.teleport(Bukkit.getWorld("world").getSpawnLocation());
-		}
-
 		if (!_gameLoaded)
 		{
 
-			int random = new Random().nextInt(_engine.manager.games.size());
-			_selectedGame = _engine.manager.games.get(random);
+			int random = new Random().nextInt(games.size());
+			_selectedGame = games.get(random);
 			_selectedGame.preLoad();
 
 			map = getRandomWorld();
@@ -123,36 +129,33 @@ public class GameManager
 			@Override
 			public void run()
 			{
-				for (Player all : Bukkit.getOnlinePlayers()) 
-				{
-					_engine.Scoreboard.giveCountdownScoreboard(all, "MINEPLEX", _time);
-				}
 				if (_time == 0)
 				{
-					for (Player all : Bukkit.getOnlinePlayers())
-					{
-						all.teleport(Bukkit.getWorld(_engine.module.GameWorld).getSpawnLocation());
-						_engine.Scoreboard.giveGameScoreboard(all, _selectedGame.getName());
-						_engine.manager._alivePlayers.add(all);
-					}
 					GameState.setGameState(GameState.IN_PROGRESS);
 					ChatFormat.broadcastMessage(
 		                    "The game, " + ChatColor.GREEN + _selectedGame.getName() + ChatColor.BLUE + " has started!",
 		                    ChatFormat.GAME);
 					_engine.manager._selectedGame.Register();
-					Bukkit.getScheduler().cancelTask(_time);
+
+					Bukkit.getScheduler().cancelTask(_task);
 				}
 				else if (_time >= 30)
 				{
+					GameState.setGameState(GameState.COUNTDOWN);
 					_engine.module.createWorld(_engine.module.GameWorld);
 					ChatFormat.broadcastMessage("The game is starting in " + _time, ChatFormat.GAME);
+					for (Player all : Bukkit.getOnlinePlayers())
+					{
+						all.getInventory().clear();
+					}
 					clearPosition();
 				}
 				else if (_time == 20)
 				{
 					ChatFormat.broadcastMessage("", ChatFormat.LINE);
 					ChatFormat.broadcastMessage("", ChatFormat.NONE);
-					ChatFormat.broadcastMessage("Game: " + ChatColor.GREEN + _selectedGame.getName(), ChatFormat.NONE);
+					ChatFormat.broadcastMessage("Game: " + ChatColor.GREEN + _selectedGame.getName().toUpperCase(),
+		                    ChatFormat.NONE);
 					ChatFormat.broadcastMessage("", ChatFormat.NONE);
 					ChatFormat.broadcastMessage(
 		                    "Map: " + ChatColor.GREEN + getMapName().toString().toUpperCase().replace("_", " "),
@@ -169,12 +172,29 @@ public class GameManager
 				{
 					ChatFormat.broadcastMessage("The game is starting in " + ChatColor.GREEN + _time, ChatFormat.GAME);
 				}
+				else if (_time == 5)
+				{
+					for (Player all : Bukkit.getOnlinePlayers())
+					{
+						all.teleport(Bukkit.getWorld(_engine.module.GameWorld).getSpawnLocation());
+						_engine.Scoreboard.giveGameScoreboard(all, _selectedGame.getName());
+						_engine.manager._alivePlayers.add(all);
+					}
+				}
 				else if (_time >= 1 && _time <= 5)
 				{
 					ChatFormat.broadcastMessage("The game is starting in " + ChatColor.GREEN + _time, ChatFormat.GAME);
 					for (Player all : Bukkit.getOnlinePlayers())
 					{
 						all.playSound(all.getLocation(), Sound.ANVIL_LAND, 1, 1);
+					}
+				}
+
+				if (_time > 0)
+				{
+					for (Player all : Bukkit.getOnlinePlayers())
+					{
+						_engine.Scoreboard.giveLobbyScoreboard(_time, all, _selectedGame.getName().toUpperCase());
 					}
 				}
 				_time--;
@@ -185,6 +205,7 @@ public class GameManager
 	public void stopCountdown()
 	{
 		Bukkit.getScheduler().cancelTask(_task);
+		GameState.setGameState(GameState.NOT_READY);
 	}
 
 	public void preFinishGame()
@@ -195,23 +216,50 @@ public class GameManager
 		if (_possition.size() == 2)
 		{
 			ChatFormat.broadcastMessage("", ChatFormat.LINE);
-			ChatFormat.broadcastMessage("First Winner: " + ChatColor.GREEN + _possition.get(1).getName(),
-			        ChatFormat.GAME);
-			ChatFormat.broadcastMessage("Second winner: " + ChatColor.GREEN + _possition.get(2).getName(),
-			        ChatFormat.GAME);
+			for (Integer i : _possition.keySet())
+			{
+				String s = ChatColor.GREEN + _possition.get(i).getName();
+				switch (i)
+				{
+					case 1:
+						ChatFormat.broadcastMessage(i + "st: " + s, ChatFormat.GAME);
+						_engine.playerData.addGems(_possition.get(i), 100);
+						break;
+					case 2:
+						ChatFormat.broadcastMessage(i + "nd: " + s, ChatFormat.GAME);
+						_engine.playerData.addGems(_possition.get(i), 50);
+						break;
+				}
+			}
 			ChatFormat.broadcastMessage("", ChatFormat.LINE);
-
 		}
 		else
 		{
-
 			ChatFormat.broadcastMessage("", ChatFormat.LINE);
-			ChatFormat.broadcastMessage("First Winner: " + ChatColor.GREEN + _possition.get(1).getName(),
-			        ChatFormat.GAME);
-			ChatFormat.broadcastMessage("Second winner: " + ChatColor.GREEN + _possition.get(2).getName(),
-			        ChatFormat.GAME);
-			ChatFormat.broadcastMessage("Third winner: " + ChatColor.GREEN + _possition.get(3).getName(),
-			        ChatFormat.GAME);
+
+			for (Integer i : _possition.keySet())
+			{
+				String s = ChatColor.GREEN + _possition.get(i).getName();
+				switch (i)
+				{
+					case 1:
+						ChatFormat.broadcastMessage(i + "st: " + s, ChatFormat.GAME);
+						_engine.playerData.addGems(_possition.get(i), 100);
+						ChatFormat.sendMessage(_possition.get(i), "You have gained 100 gems for coming first!",
+						        ChatFormat.GAME);
+						break;
+
+					case 2:
+						ChatFormat.broadcastMessage(i + "nd: " + s, ChatFormat.GAME);
+						_engine.playerData.addGems(_possition.get(i), 50);
+						break;
+
+					case 3:
+						ChatFormat.broadcastMessage(i + "rd: " + s, ChatFormat.GAME);
+						_engine.playerData.addGems(_possition.get(i), 25);
+						break;
+				}
+			}
 			ChatFormat.broadcastMessage("", ChatFormat.LINE);
 		}
 
@@ -220,7 +268,7 @@ public class GameManager
 			@Override
 			public void run()
 			{
-				restartGame();
+				finishGame();
 			}
 		}, 5 * 20);
 	}
@@ -239,6 +287,7 @@ public class GameManager
 	{
 		player.setAllowFlight(true);
 		player.setFlying(true);
+		player.setHealth(player.getMaxHealth());
 		player.teleport(player.getWorld().getSpawnLocation());
 
 		ChatFormat.sendMessage(player, "Spectator added!", ChatFormat.GAME);

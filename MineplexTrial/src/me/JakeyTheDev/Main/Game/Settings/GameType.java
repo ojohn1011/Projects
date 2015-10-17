@@ -16,8 +16,8 @@ public enum GameType
     {
     	_gameType = type;
     }
-    public static boolean isGameType(GameState type) 
+    public static boolean isGameType(GameType type) 
     {
-    	return GameState.getGameState() == type;
+    	return GameType.getGameType() == type;
     }
 }

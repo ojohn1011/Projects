@@ -7,6 +7,7 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 
 import me.JakeyTheDev.Main.Engine;
+import me.JakeyTheDev.Main.Game.Settings.GameType;
 
 public class ScoreboardUtil
 {
@@ -19,33 +20,32 @@ public class ScoreboardUtil
 
 	private Objective _games;
 
-	public void giveWaitingScoreboard(Player player, String game)
+	public void giveLobbyScoreboard(int timer, Player player, String game)
 	{
 		player.setScoreboard(ScoreboardManagers.createScoreboard());
 		Objective o = ScoreboardManagers.createObjective(player.getScoreboard(), DisplaySlot.SIDEBAR,
-		        "" + ChatColor.WHITE + ChatColor.BOLD + "MINEPLEX");
+		        "" + ChatColor.WHITE + ChatColor.BOLD + "STARTING IN " + ChatColor.GREEN + ChatColor.BOLD + timer);
 		ScoreboardManagers.setScores(o, " ", 8);
-		ScoreboardManagers.setScores(o, ChatColor.YELLOW.toString() + ChatColor.BOLD + "Kits" + ChatColor.WHITE + ":", 7);
-		ScoreboardManagers.setScores(o, ChatColor.WHITE + "NOT IMPLEMENTED!",6);
+		ScoreboardManagers.setScores(o, ChatColor.YELLOW.toString() + ChatColor.BOLD + "Players" + ChatColor.WHITE + ":", 7);
+		ScoreboardManagers.setScores(o, ChatColor.WHITE.toString() + Bukkit.getOnlinePlayers().size() + "/12",6);
 		ScoreboardManagers.setScores(o, "  ", 5);
 		ScoreboardManagers.setScores(o, "" + ChatColor.YELLOW + ChatColor.BOLD + "Game" + ChatColor.WHITE + ":", 4);
-		ScoreboardManagers.setScores(o, ChatColor.WHITE + game, 3);
+		ScoreboardManagers.setScores(o, ChatColor.WHITE + GameType.getGameType().toString().toUpperCase(), 3);
 		ScoreboardManagers.setScores(o, "   ", 2);
 		ScoreboardManagers.setScores(o, "" + ChatColor.YELLOW + ChatColor.BOLD + "Server" + ChatColor.WHITE + ":", 1);
 		ScoreboardManagers.setScores(o, "JakeyTheDev-1", 0);
 	}
-
-	public void giveCountdownScoreboard(Player player, String game, int time)
+	public void giveWaitingScoreboard(Player player, String game)
 	{
 		player.setScoreboard(ScoreboardManagers.createScoreboard());
 		Objective o = ScoreboardManagers.createObjective(player.getScoreboard(), DisplaySlot.SIDEBAR,
-		        "" + ChatColor.WHITE + ChatColor.BOLD + "Starting in " + ChatColor.GREEN + ChatColor.BOLD + time);
+		        "" + ChatColor.WHITE + ChatColor.BOLD + game);
 		ScoreboardManagers.setScores(o, " ", 8);
-		ScoreboardManagers.setScores(o, "" + ChatColor.YELLOW + ChatColor.BOLD + "Players" + ChatColor.WHITE + ":", 7);
-		ScoreboardManagers.setScores(o, "" + ChatColor.WHITE + Bukkit.getOnlinePlayers().size() + " / 12", 6);
+		ScoreboardManagers.setScores(o, ChatColor.YELLOW.toString() + ChatColor.BOLD + "Players" + ChatColor.WHITE + ":", 7);
+		ScoreboardManagers.setScores(o, ChatColor.WHITE.toString() + Bukkit.getOnlinePlayers().size() + "/12",6);
 		ScoreboardManagers.setScores(o, "  ", 5);
 		ScoreboardManagers.setScores(o, "" + ChatColor.YELLOW + ChatColor.BOLD + "Game" + ChatColor.WHITE + ":", 4);
-		ScoreboardManagers.setScores(o, ChatColor.WHITE + game, 3);
+		ScoreboardManagers.setScores(o, ChatColor.WHITE + GameType.getGameType().toString().toUpperCase(), 3);
 		ScoreboardManagers.setScores(o, "   ", 2);
 		ScoreboardManagers.setScores(o, "" + ChatColor.YELLOW + ChatColor.BOLD + "Server" + ChatColor.WHITE + ":", 1);
 		ScoreboardManagers.setScores(o, "JakeyTheDev-1", 0);

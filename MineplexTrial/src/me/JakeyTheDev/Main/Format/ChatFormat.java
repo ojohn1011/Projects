@@ -7,11 +7,11 @@ import org.bukkit.entity.Player;
 public enum ChatFormat
 {
 
-	NONE("", ChatColor.BLUE.toString() + ChatColor.BOLD, ChatColor.BLUE.toString()), GAME("GAME",
-	        ChatColor.BLUE.toString() + ChatColor.BOLD, ChatColor.BLUE.toString()), ADMIN("ADMIN",
-	                ChatColor.RED.toString() + ChatColor.BOLD, ChatColor.BLUE.toString()), LINE(
-	                        "=======================================", ChatColor.DARK_GREEN.toString() + ChatColor.BOLD,
-	                        ChatColor.DARK_GREEN.toString() + ChatColor.BOLD);
+	NONE("", ChatColor.BLUE.toString(), ChatColor.BLUE.toString()), GAME("Game>", ChatColor.BLUE.toString(),
+	        ChatColor.BLUE.toString()), ADMIN("Admin>", ChatColor.RED.toString(), ChatColor.BLUE.toString()), LINE(
+	                "=======================================",
+	                ChatColor.DARK_GREEN.toString() + ChatColor.STRIKETHROUGH,
+	                ChatColor.DARK_GREEN.toString() + ChatColor.BOLD);
 
 	public String prefix, pColour, cColour;
 
