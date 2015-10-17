@@ -20,7 +20,8 @@ public class FireworkCommand implements CommandExecutor
 
 		Player player = (Player) sender;
 
-		if(args.length == 1) {
+		if(args.length == 1)
+		{
 			if(args[0].equalsIgnoreCase("Launch")) 
 			{
 				ChatUtil.sendMessage(player, ChatUtil.HUB, "FIREWORKS SIZZLE!");
