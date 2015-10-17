@@ -12,9 +12,11 @@ import me.JakeyTheDev.Hub.Listeners.GlobalListeners.PlaceAndMineBlockListener;
 import me.JakeyTheDev.Hub.Listeners.GlobalListeners.QuitListener;
 import me.JakeyTheDev.Hub.Listeners.GlobalListeners.RespawnEvent;
 
-public class RegisterEvents {
+public class RegisterEvents 
+{
 	
-	public static void registerEvents() {
+	public static void registerEvents() 
+	{
 		
 		Bukkit.getPluginManager().registerEvents(new InventoryListener(), Core.getInstance());
 		Bukkit.getPluginManager().registerEvents(new InteractEvent(), Core.getInstance());
