@@ -23,45 +23,62 @@ public class Core extends JavaPlugin implements Listener
 	
 	@SuppressWarnings("all")
 
-	public void onEnable() {
+	public void onEnable() 
+	
+	{
 
 		Instance = this;
 
 		sql = new MySQL(getInstance(), "IP HERE", "3306", "Core", "USERNAME", "PASSWORD");
 
 		sql.register();
+		
 
-		for (Player all : Bukkit.getOnlinePlayers()) {
+		for (Player all : Bukkit.getOnlinePlayers()) 
+		{
 			PlayerData.players.put(all, new PlayerData(all));
 		}
 
-		try {
-			if(sql.checkConnection() == false) {
+		try
+		{
+			if(sql.checkConnection() == false) 
+			{
 
 				System.out.println("Not Connected to the SQL Servers!");
 
-			} else {
+			} else 
+			
+			
+			{
 
 				getConfig().options().copyDefaults(true);
 
 				saveConfig();
 
 
-				Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {
+				Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, new Runnable()
+				
+				{
 
 					@Override
-					public void run() {
+					public void run()
+					{
 
 						try {
-							if(sql.openConnection().isClosed()) {
+							if(sql.openConnection().isClosed()) 
+							{
 								sql.openConnection();
-							} else {
+							} else
+							{
 								System.out.println("SQL connection still stable!"); 
 							}
-						} catch (SQLException e) {
+						} catch (SQLException e) 
+						
+						{
 							System.out.println("SQL connection disabled by SQL Exception in Main");
 							e.printStackTrace();
-						} catch (ClassNotFoundException e) {
+						} catch (ClassNotFoundException e)
+						{
 							System.out.println("SQL connection disabled by ClassNotFound Exception in Main");
 							e.printStackTrace();
 						}
@@ -69,30 +86,38 @@ public class Core extends JavaPlugin implements Listener
 					}
 				}, 500*20, 500*20);
 			}
-		} catch (SQLException e) {
+		} catch (SQLException e) 
+		{
 			System.out.println("Could not connect to servers for SQL!");
 			e.printStackTrace();
 		}
 	}
-	public void onDisable() {
+	public void onDisable() 
+	{
 
-		for (Player all : Bukkit.getOnlinePlayers()) {
+		for (Player all : Bukkit.getOnlinePlayers()) 
+		{
 
 			PlayerData.players.get(all).saveData(); 
 
-			try {
+			try 
+			
+			{
 				sql.closeConnection();
-			} catch (SQLException e) {
+			} catch (SQLException e)
+			{
 				e.printStackTrace();
 				System.out.println("SQL Disconected on server being closed!"); 
 			}
 		}
 	}
 
-	public static Core getInstance() {
+	public static Core getInstance()
+	{
 		return Instance;
 	}
-	public ChatUtil getChatManager() {
+	public ChatUtil getChatManager()
+	{
 		return this.chat;
 	}
 }
