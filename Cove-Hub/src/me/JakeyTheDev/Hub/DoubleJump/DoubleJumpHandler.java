@@ -9,10 +9,12 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class DoubleJumpHandler extends JavaPlugin implements Listener {
+public class DoubleJumpHandler extends JavaPlugin implements Listener 
+{
 	
 	@EventHandler
-	public void onPlayerToggleFlight(PlayerToggleFlightEvent event) {
+	public void onPlayerToggleFlight(PlayerToggleFlightEvent event)
+	{
 		Player player = event.getPlayer();
 		if(player.getGameMode() == GameMode.CREATIVE)
 			return;
@@ -24,7 +26,8 @@ public class DoubleJumpHandler extends JavaPlugin implements Listener {
 	}
 	
 	@EventHandler
-	public void doubleJump(PlayerMoveEvent e) {
+	public void doubleJump(PlayerMoveEvent e)
+	{
 		Player player = e.getPlayer();
 		if ((player.getGameMode() != GameMode.CREATIVE)
 			&& (player.getLocation().subtract(0, 1, 0).getBlock().getType() != Material.AIR) && (!player.isFlying())) {
@@ -33,8 +36,5 @@ public class DoubleJumpHandler extends JavaPlugin implements Listener {
 			
 			
 		}
-			
-			
-		
 	}
 }
