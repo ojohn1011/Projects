@@ -2,7 +2,8 @@ package me.JakeyTheDev.Hub.Utils;
 
 import org.bukkit.ChatColor;
 
-public class TitleUtil {
+public class TitleUtil
+{
 
 	public static String Selector = ChatColor.AQUA + "Game Selector";
 	public static String SelectorTitle = ChatColor.GREEN + "Choose a Game!";
