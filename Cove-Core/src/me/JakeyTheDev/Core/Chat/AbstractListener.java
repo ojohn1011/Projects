@@ -4,11 +4,13 @@ import org.bukkit.event.Listener;
 
 import me.JakeyTheDev.Core.Core;
 
-public abstract class AbstractListener implements Listener {
+public abstract class AbstractListener implements Listener 
+{
 
 	protected Core core;
 	
-	public AbstractListener() {
+	public AbstractListener() 
+	{
 		this.core = Core.getInstance();
 	}
 }
