@@ -6,10 +6,12 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import me.JakeyTheDev.Hub.Methods.GiveItems;
 
-public class RespawnEvent implements Listener {
+public class RespawnEvent implements Listener 
+{
 	
 	@EventHandler
-	public void onRespawn(PlayerRespawnEvent e) {
+	public void onRespawn(PlayerRespawnEvent e) 
+	{
 	
 		GiveItems.giveItems(e.getPlayer());
 	}
