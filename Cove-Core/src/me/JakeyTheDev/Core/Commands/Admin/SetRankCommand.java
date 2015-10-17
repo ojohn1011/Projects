@@ -13,15 +13,18 @@ import me.JakeyTheDev.Core.PlayerData.PlayerData;
 import me.JakeyTheDev.Core.Ranks.PermissionsManager;
 import me.JakeyTheDev.Core.Utils.ChatUtil;
 
-public class SetRankCommand extends AbstractCommand {
+public class SetRankCommand extends AbstractCommand
+{
 	
-	public SetRankCommand(int rank) {
+	public SetRankCommand(int rank) 
+	{
 		super(rank);
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) 
+	{
 		if ((sender instanceof Player)) {
 			Player s = (Player) sender;
 			if (args.length < 2) {
@@ -35,13 +38,15 @@ public class SetRankCommand extends AbstractCommand {
 				return true;
 			}
 			PlayerData t = PlayerData.players.get(target);
-			if (PlayerData.players.get(s).rank.rank < t.rank.rank) {
+			if (PlayerData.players.get(s).rank.rank < t.rank.rank)
+			{
 				ChatUtil.sendMessage(s, ChatUtil.PERMISSIONS, "You cannot set the rank of a player higher than you!");
 				return true;
 			}
 			
 			String rank = args[1].toUpperCase();
-			if (!PermissionsManager.isRank(rank)) {
+			if (!PermissionsManager.isRank(rank))
+			{
 				ChatUtil.sendMessage(s, ChatUtil.PERMISSIONS, rank + " is not a rank?");
 				return true;
 			}
@@ -49,13 +54,15 @@ public class SetRankCommand extends AbstractCommand {
 			ChatUtil.sendMessage(s, ChatUtil.PERMISSIONS, "The player has recieved their rank!");
 			
 		} else {
-			if (args.length < 2) {
+			if (args.length < 2)
+			{
 				Player player = (Player) sender;
 				ChatUtil.sendMessage(player, ChatUtil.PERMISSIONS, "Wrong amount of arguments!");
 				return true;
 			}
 			
-			if (Bukkit.getPlayerExact(args[0]) != null) {
+			if (Bukkit.getPlayerExact(args[0]) != null)
+			{
 				
 				Player target = Bukkit.getPlayerExact(args[0]);
 				
@@ -63,7 +70,8 @@ public class SetRankCommand extends AbstractCommand {
     			
     			String rank = args[1].toUpperCase();
     			
-    			if (!PermissionsManager.isRank(rank)) {
+    			if (!PermissionsManager.isRank(rank)) 
+    			{
     				Player player = (Player) sender;
     				ChatUtil.sendMessage(player, ChatUtil.PERMISSIONS, "This is an invalid rank!");
     				return true;
@@ -76,21 +84,25 @@ public class SetRankCommand extends AbstractCommand {
 				
 				String rank = args[1].toUpperCase();
     			Player player = (Player) sender;
-    			if (!PermissionsManager.isRank(rank)) {
+    			if (!PermissionsManager.isRank(rank))
+    			{
     				ChatUtil.sendMessage(player, ChatUtil.PERMISSIONS, rank + " is not a rank?");
     				return true;
     			}
 				
 				try {
-					if(Core.sql.checkConnection()) {
+					if(Core.sql.checkConnection()) 
+					{
 						if(Core.sql.accountExists(Bukkit.getOfflinePlayer(args[0]).getUniqueId(), "PlayerInfo")) {
 							Core.sql.setValue(Bukkit.getOfflinePlayer(args[0]).getUniqueId(), "PlayerInfo", "RANK", rank);
 							System.out.println("COMPLETE");
-						} else {
+						} else
+						{
 							System.out.println("DOSNT EXIST");
 						}
 					}
-				} catch (SQLException e) {
+				} catch (SQLException e)
+				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
