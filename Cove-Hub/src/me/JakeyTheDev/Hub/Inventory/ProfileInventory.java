@@ -10,12 +10,14 @@ import org.bukkit.inventory.Inventory;
 
 import me.JakeyTheDev.Hub.Utils.ItemUtil;
 
-public class ProfileInventory {
+public class ProfileInventory 
+{
 
 
 	public static Inventory Profile;
 
-	public static void openProfileMenu(Player player) {
+	public static void openProfileMenu(Player player)
+	{
 
 		Profile = Bukkit.createInventory(null, 3*9, ChatColor.AQUA + "Profile");
 
