@@ -10,11 +10,13 @@ import me.JakeyTheDev.Hub.Commands.VersionCommand;
 import me.JakeyTheDev.Hub.Listeners.RegisterEvents;
 import me.JakeyTheDev.Hub.Utils.Arrays;
 
-public class Core extends JavaPlugin implements Listener {
+public class Core extends JavaPlugin implements Listener
+{
 	
 	private static Core Instance;
 	
-	public void onEnable() {
+	public void onEnable()
+	{
 		
 		Instance = this;
 		
@@ -28,13 +30,16 @@ public class Core extends JavaPlugin implements Listener {
 		System.out.println("Cove-Hub Enabled!");
 		
 	}
-	public void onDisable() {
+	public void onDisable()
+	{
 		
-		for (Player all : Bukkit.getOnlinePlayers()) {
+		for (Player all : Bukkit.getOnlinePlayers())
+		{
 		Arrays.Vanish.remove(all);
 		}
 	}
-	public static Core getInstance() {
+	public static Core getInstance()
+	{
 		return Instance;
 	}
 }
