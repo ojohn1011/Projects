@@ -11,16 +11,19 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.JakeyTheDev.Hub.Utils.ChatUtil;
 import me.JakeyTheDev.Hub.Utils.Packets.ActionBar;
 
-public class QuitListener implements Listener {
+public class QuitListener implements Listener 
+{
 
 	@EventHandler
-	public void onQuit(PlayerQuitEvent e) {
+	public void onQuit(PlayerQuitEvent e) 
+	{
 
 		Player player = e.getPlayer();
 		
 		e.setQuitMessage("");
 
-		for (Player all : Bukkit.getOnlinePlayers()) {
+		for (Player all : Bukkit.getOnlinePlayers()) 
+		{
 			ActionBar.sendActionbar(all,ChatColor.GOLD +  player.getName() + ChatColor.GREEN + " has left the game!");
 			ChatUtil.sendMessage(all, ChatUtil.LEAVE, player.getName());
 		}
