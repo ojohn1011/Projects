@@ -14,7 +14,8 @@ import org.bukkit.plugin.Plugin;
 
 import me.JakeyTheDev.Core.Core;
 
-public class MySQL extends Database {
+public class MySQL extends Database 
+{
 
 	private String user;
 	private String database;
@@ -22,7 +23,8 @@ public class MySQL extends Database {
 	private String port;
 	private String hostname;
 
-	public MySQL(Plugin plugin, String hostname, String port, String database, String username, String password) {
+	public MySQL(Plugin plugin, String hostname, String port, String database, String username, String password)
+	{
 		super(plugin);
 		this.hostname = hostname;
 		this.port = port;
@@ -33,23 +35,30 @@ public class MySQL extends Database {
 		connect(hostname, port, database, username, password);
 	}
 
-	public boolean connect(String host, String port, String db, String user, String pass) {
-		try {
+	public boolean connect(String host, String port, String db, String user, String pass) 
+	{
+		try
+		{
 			openConnection();
 			return checkConnection();
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 			plugin.getLogger().log(Level.SEVERE, "Could not connect to DB");
 			return false;
 		}
 	}
 
-	public void createTable(final String tableName, final String vars) {
-		Bukkit.getScheduler().runTaskAsynchronously(Core.getInstance(), new Runnable() {
-			public void run() {
+	public void createTable(final String tableName, final String vars)
+	{
+		Bukkit.getScheduler().runTaskAsynchronously(Core.getInstance(), new Runnable()
+		{
+			public void run() 
+			{
 				try {
-					updateDB("CREATE TABLE IF NOT EXISTS " + tableName + "(" + vars + ");"); //Nope
-				} catch (ClassNotFoundException | SQLException e) {
+					updateDB("CREATE TABLE IF NOT EXISTS " + tableName + "(" + vars + ");");
+				} catch (ClassNotFoundException | SQLException e)
+				{
 					e.printStackTrace();
 				}
 			}
@@ -57,73 +66,90 @@ public class MySQL extends Database {
 
 	}
 
-	public void update(final String update) {
+	public void update(final String update)
+	{
 
-		try {
+		try
+		{
 			updateDB(update);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch(ClassNotFoundException e) {
+		} catch(ClassNotFoundException e) 
+		{
 			e.printStackTrace();
 		}
 
 	}
 
-	public ResultSet query(String query) {
-		try {
+	public ResultSet query(String query)
+	{
+		try 
+		{
 			return this.queryDB(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch(ClassNotFoundException e) {
+		} catch(ClassNotFoundException e) 
+		{
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 
-	public Connection openConnection() throws SQLException, ClassNotFoundException {
-		if (checkConnection()) {
+	public Connection openConnection() throws SQLException, ClassNotFoundException 
+	{
+		if (checkConnection())
+		{
 			return connection;
 		}
 		connection = DriverManager.getConnection("jdbc:mysql://" + hostname + ":" + port + "/" + database, user, password);
 		return connection;
 	}
 
-	public void register() {
+	public void register() 
+	{
 		createTable("Players", "UUID VARCHAR(255), NAME VARCHAR(255), CRYSTALS BIGINT, RANK VARCHAR(255)");
 	}
 
 }
 
-abstract class Database {
+abstract class Database
+{
 	public Connection connection;
 	protected Plugin plugin;
 
-	protected Database(Plugin plugin) {
+	protected Database(Plugin plugin)
+	{
 		this.plugin = plugin;
 		this.connection = null;
 	}
 
 	public abstract Connection openConnection() throws SQLException, ClassNotFoundException;
 
-	public boolean checkConnection() throws SQLException {
+	public boolean checkConnection() throws SQLException 
+	{
 		return (this.connection != null) && (!this.connection.isClosed());
 	}
 
-	public Connection getConnection() {
+	public Connection getConnection() 
+	{
 		return this.connection;
 	}
 
-	public boolean closeConnection() throws SQLException {
-		if (this.connection == null) {
+	public boolean closeConnection() throws SQLException 
+	{
+		if (this.connection == null)
+		{
 			return false;
 		}
 		this.connection.close();
 		return true;
 	}
 
-	protected ResultSet queryDB(String query) throws SQLException, ClassNotFoundException {
-		if (!checkConnection()) {
+	protected ResultSet queryDB(String query) throws SQLException, ClassNotFoundException 
+	{
+		if (!checkConnection())
+		{
 			openConnection();
 		}
 		Statement statement = this.connection.createStatement();
@@ -131,8 +157,10 @@ abstract class Database {
 		return result;
 	}
 
-	protected int updateDB(String update) throws SQLException, ClassNotFoundException {
-		if (!checkConnection()) {
+	protected int updateDB(String update) throws SQLException, ClassNotFoundException 
+	{
+		if (!checkConnection()) 
+		{
 			openConnection();
 		}
 		Statement statement = this.connection.createStatement();
@@ -140,8 +168,10 @@ abstract class Database {
 		return result;
 	}
 
-	public int[] sendBatchStatement(String[] stmts) throws SQLException, ClassNotFoundException {
-		if (!checkConnection()) {
+	public int[] sendBatchStatement(String[] stmts) throws SQLException, ClassNotFoundException 
+	{
+		if (!checkConnection()) 
+		{
 			openConnection();
 		}
 		Statement statement = this.connection.createStatement();
@@ -154,9 +184,12 @@ abstract class Database {
 		return ResultCodes;
 	}
 
-	public Object getValue(UUID uuid, String key) {
-		try {
-			if (!checkConnection()) {
+	public Object getValue(UUID uuid, String key) 
+	{
+		try 
+		{
+			if (!checkConnection()) 
+			{
 				openConnection();
 			}
 			PreparedStatement sql = connection.prepareStatement("SELECT `" + key + "` FROM `" +
@@ -165,21 +198,24 @@ abstract class Database {
 			ResultSet resultSet = sql.executeQuery();
 			boolean exists = resultSet.next();
 
-			if (exists == true) {
+			if (exists == true)
+			{
 				return resultSet.getObject(key);
 			}
 
 			sql.close();
 			resultSet.close();
 
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 
 		return null;
 	}
 
-	public void setValue(UUID uuid, String key, Object value, int i) {
+	public void setValue(UUID uuid, String key, Object value, int i)
+	{
 		try {
 			PreparedStatement updateData = connection.prepareStatement("UPDATE `" + "Players" +  "` SET " + key + "=? WHERE UUID=?;");
 			updateData.setObject(1, value);
@@ -188,12 +224,16 @@ abstract class Database {
 
 			updateData.close();
 
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 		}
 	}
-	public boolean accountExists(UUID uuid, String string) {
-		try {
-			if (!checkConnection()) {
+	public boolean accountExists(UUID uuid, String string)
+	{
+		try 
+		{
+			if (!checkConnection()) 
+			{
 				openConnection();
 			}
 			PreparedStatement sql = this.connection.prepareStatement("SELECT * FROM `" + "Players" + "` WHERE UUID=?;"); 
@@ -206,7 +246,8 @@ abstract class Database {
 
 			return containsPlayer;
 
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 
 			return false;
