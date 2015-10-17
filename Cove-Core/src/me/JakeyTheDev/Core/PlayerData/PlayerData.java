@@ -1,3 +1,4 @@
+
 package me.JakeyTheDev.Core.PlayerData;
 
 import java.sql.ResultSet;
@@ -12,7 +13,8 @@ import me.JakeyTheDev.Core.Core;
 import me.JakeyTheDev.Core.Ranks.PermissionsManager;
 
 
-public class PlayerData {
+public class PlayerData 
+{
 
 
 	public static HashMap<Player, PlayerData> players = new HashMap<Player, PlayerData>();
@@ -27,17 +29,21 @@ public class PlayerData {
 
 	public PermissionsManager rank = PermissionsManager.PLAYER;
 
-	public void updateRank(PermissionsManager pm) {
+	public void updateRank(PermissionsManager pm) 
+	{
 		int temps = pm.rank;
 
-		if (temps > this.rank.rank) {
+		if (temps > this.rank.rank)
+		{
 
-			for (int i = 0; i <= temps; i++) {
+			for (int i = 0; i <= temps; i++)
+			{
 				if (i > this.rank.rank) this.attachment.setPermission(i + "", true);
 			}
 
 		} else if (temps < this.rank.rank) {
-			for (int i = 0; i <= this.rank.rank; i++) {
+			for (int i = 0; i <= this.rank.rank; i++) 
+			{
 				if (i > temps) this.attachment.setPermission(i + "", false);
 			}
 		}
@@ -46,7 +52,8 @@ public class PlayerData {
 	}
 
 
-	public PlayerData(final Player p) {
+	public PlayerData(final Player p) 
+	{
 
 		player = p;
 
@@ -55,14 +62,17 @@ public class PlayerData {
 
 		this.attachment = this.player.addAttachment(Core.getInstance());
 
-		Bukkit.getScheduler().runTaskAsynchronously(Core.getInstance(), new Runnable() {
+		Bukkit.getScheduler().runTaskAsynchronously(Core.getInstance(), new Runnable() 
+		{
 			@Override
-			public void run() {
+			public void run()
+			{
 
 				ResultSet set = Core.sql.query("SELECT * FROM `" + "Crystals" + "` WHERE UUID = '" + p.getUniqueId().toString() + "';"); 
 
 				try {
-					if (set.next()) { 
+					if (set.next())
+					{ 
 
 						PlayerData.this.uuid = set.getString("UUID"); 
 						PlayerData.this.name = set.getString("NAME");
@@ -70,7 +80,8 @@ public class PlayerData {
 
 						PlayerData.this.rank = PermissionsManager.valueOf(set.getString("RANK"));
 
-					} else {
+					} else 
+					{
 
 						PlayerData.this.name = p.getName();
 						PlayerData.this.uuid = p.getUniqueId().toString(); 
@@ -80,10 +91,12 @@ public class PlayerData {
 
 					}
 
-				} catch (SQLException e) {
+				} catch (SQLException e) 
+				{
 					e.printStackTrace();
 				}
-				for (int i = PlayerData.this.rank.rank; i >= 0; i--) {
+				for (int i = PlayerData.this.rank.rank; i >= 0; i--) 
+				{
 					if (!PlayerData.this.attachment.getPermissions().containsKey(i + "")) PlayerData.this.attachment.setPermission(i + "", true);
 				}
 			}
@@ -99,24 +112,31 @@ public class PlayerData {
 		Core.getInstance();
 		ResultSet set = Core.sql.query("SELECT * FROM `" + "Crystals" + "` WHERE UUID = '" + s + "';");
 
-		try {
-			if (set.next()) { 
+		try 
+		{
+			if (set.next())
+			{ 
 
 				Core.sql.update("UPDATE `" + "Crystals" + "` SET `NAME` = '" + s1 + "', `CRYSTALS` = '" + this.Crystals + "', `RANK` = '" + this.rank.toString() +"' + WHERE `UUID` = '" + s + "';"); 
 
-			} else { 
+			} else
+			{ 
 
 				Core.sql.update("INSERT INTO `" + "ExileNetwork" + "` (`UUID`, `NAME`, `CRYSTALS`, `RANK`) VALUES ('" + s + "', '" + s1 + "', '" + this.Crystals + "', '" + this.rank.toString() + "');"); 
 			}
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public void saveDataAsync() {
-		Bukkit.getScheduler().runTaskAsynchronously(Core.getInstance(), new Runnable() {
+	public void saveDataAsync()
+	{
+		Bukkit.getScheduler().runTaskAsynchronously(Core.getInstance(), new Runnable()
+		{
 			@Override
-			public void run() {
+			public void run() 
+			{
 				saveData();
 			}
 		});
