@@ -21,40 +21,49 @@ import me.JakeyTheDev.Core.Commands.Admin.SetRankCommand;
 import me.JakeyTheDev.Core.Ranks.PermissionsManager;
 import net.md_5.bungee.api.ChatColor;
 
-public class CommandManager {
+public class CommandManager
+{
 
 	private static Core core;
 
-	public CommandManager() {
+	public CommandManager() 
+	{
 		core = Core.getInstance();
 	}
 
 	public static HashMap<AbstractCommand, String> cmd = new HashMap<AbstractCommand, String>();
 
-	public static void register(JavaPlugin pl, AbstractCommand c, String name) {
+	public static void register(JavaPlugin pl, AbstractCommand c, String name)
+	{
 		cmd.put(c, name);
 		pl.getCommand(cmd.get(c)).setExecutor(c);
 		pl.getCommand(cmd.get(c)).setPermission(c.rank + "");
 		loadPerms();
 	}
 
-	public void registerAll() {
+	public void registerAll()
+	{
 		cmd.put(new EcoCommand(9), "eco");
 		cmd.put(new GamemodeCommand(10), "gamemode");
 		cmd.put(new SetRankCommand(9), "setrank");
 
-		for (AbstractCommand c : cmd.keySet()) {
+		for (AbstractCommand c : cmd.keySet())
+		{
 			core.getCommand(cmd.get(c)).setExecutor(c);
 			core.getCommand(cmd.get(c)).setPermission(c.rank + "");
 		}
 	}
 
-	public static void loadPerms() {
+	public static void loadPerms()
+	{
 
-		try {
-			for (Command c : getAllCommands()) {
+		try 
+		{
+			for (Command c : getAllCommands()) 
+			{
 				String perm = c.getPermission();
-				switch (Integer.valueOf(perm)) {
+				switch (Integer.valueOf(perm)) 
+				{
 				case 0:
 					c.setPermissionMessage(ChatColor.GRAY + "This requires the Rank: " + ChatColor.BLUE
 							+ PermissionsManager.PLAYER.toString() + ChatColor.GRAY + ".");
@@ -96,7 +105,8 @@ public class CommandManager {
 							+ ChatColor.GRAY + ".");
 				}
 			}
-		} catch (Exception e) {
+		} catch (Exception e) 
+		{
 
 		}
 
